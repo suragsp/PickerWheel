@@ -5,12 +5,12 @@ const chancesDisplay = document.getElementById('chances');
 const numberList = document.querySelector('.number-list');
 
 let spinning = false;
-let chancesLeft = 5;
+let chancesLeft = Infinity; // Set chances to Infinity to allow unlimited spins
 
-chancesDisplay.textContent = `Chances left: ${chancesLeft}`;
+chancesDisplay.textContent = `Chances left: Unlimited`;
 
 spinButton.addEventListener('click', () => {
-    if (spinning || chancesLeft === 0) return;
+    if (spinning) return;
 
     const startNumberInput = parseInt(prompt("Enter start number:"));
     const endNumberInput = parseInt(prompt("Enter end number:"));
@@ -27,9 +27,6 @@ spinButton.addEventListener('click', () => {
     const rotation = 1800 + anglePerSegment * randomSegmentIndex;
 
     spinning = true;
-    chancesLeft--;
-
-    chancesDisplay.textContent = `Chances left: ${chancesLeft}`;
 
     wheel.style.transition = 'transform 5s ease-out';
     wheel.style.transform = `rotate(${rotation}deg)`;
