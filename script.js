@@ -19,16 +19,25 @@ spinButton.addEventListener('click', () => {
     wheel.style.transform = `rotate(${rotation}deg)`;
 
     setTimeout(() => {
-        const selectedIndex = Math.floor(randomAngle / (360 / numberList.length));
-        const selectedNumber = numberList[selectedIndex].textContent;
-        numberDisplay.textContent = selectedNumber;
-        wheel.style.transition = 'transform 2s ease-out';
-        const correctedRotation = rotation + (360 / numberList.length / 2);
-        wheel.style.transform = `rotate(${correctedRotation}deg) scale(1.5)`;
+        spinning = false;
+
+        // Find the closest selected segment
+        const anglePerSegment = 360 / numberList.length;
+        const targetSegmentIndex = Math.floor((randomAngle + anglePerSegment / 2) / anglePerSegment);
+        const targetAngle = targetSegmentIndex * anglePerSegment;
+        
+        // Rotate to the exact selected angle
+        wheel.style.transition = 'transform 3s ease-in-out';
+        wheel.style.transform = `rotate(${rotation + targetAngle}deg) scale(1.5)`;
+
+        // Display the selected number after the rotation animation
         setTimeout(() => {
-            wheel.style.transition = 'transform 1s ease-out';
-            wheel.style.transform = `rotate(${correctedRotation}deg) scale(1)`;
-            spinning = false;
-        }, 2000);
+            const selectedNumber = numberList[targetSegmentIndex].textContent;
+            numberDisplay.textContent = selectedNumber;
+
+            // Restore the wheel to its normal size
+            wheel.style.transition = 'transform 1s ease-in-out';
+            wheel.style.transform = `rotate(${rotation + targetAngle}deg) scale(1)`;
+        }, 3000);
     }, 5000);
 });
