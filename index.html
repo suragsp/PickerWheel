@@ -8,19 +8,23 @@
 </head>
 <body>
     <div class="picker-container">
+        <div>
+            <label for="start-number">Start Number:</label>
+            <input type="number" id="start-number">
+        </div>
+        <div>
+            <label for="end-number">End Number:</label>
+            <input type="number" id="end-number">
+        </div>
         <div id="wheel" class="picker-wheel">
             <div class="picker-background"></div>
             <div id="number" class="picker-number">0</div>
             <ul class="number-list">
-                <!-- Generate the segments on the wheel -->
-                <li style="--start-angle: 0deg; --end-angle: 36deg;">1</li>
-                <li style="--start-angle: 36deg; --end-angle: 72deg;">2</li>
-                <li style="--start-angle: 72deg; --end-angle: 108deg;">3</li>
-                <!-- ... more segments ... -->
-                <li style="--start-angle: 324deg; --end-angle: 360deg;">10</li>
+                <!-- Generate the segments on the wheel based on the input numbers -->
             </ul>
         </div>
         <button id="spin-button" class="spin-button">Spin</button>
+        <div id="chances">Chances left: 5</div>
     </div>
     <script src="script.js"></script>
 </body>
