@@ -1,22 +1,31 @@
 const wheel = document.getElementById('wheel');
 const numberDisplay = document.getElementById('number');
-const numberList = document.querySelectorAll('.number-list li');
 const spinButton = document.getElementById('spin-button');
 const chancesDisplay = document.getElementById('chances');
+const startNumberInput = document.getElementById('start-number');
+const endNumberInput = document.getElementById('end-number');
+const numberList = document.querySelector('.number-list');
 
 let spinning = false;
-let chancesLeft = 5; // Set the initial number of chances
+let chancesLeft = 5;
 
 chancesDisplay.textContent = `Chances left: ${chancesLeft}`;
 
 spinButton.addEventListener('click', () => {
-    if (spinning || chancesLeft === 0) return; // Prevent spins when already spinning or no chances left
+    if (spinning || chancesLeft === 0) return;
 
-    const startAngle = 0;
-    const endAngle = 360 * (numberList.length - 1);
-    const randomAngle = Math.random() * (endAngle - startAngle) + startAngle;
+    const startNumber = parseInt(startNumberInput.value);
+    const endNumber = parseInt(endNumberInput.value);
 
-    const rotation = 1800 + randomAngle; // Rotate at least 5 full circles plus the random angle
+    if (isNaN(startNumber) || isNaN(endNumber)) {
+        alert('Please enter valid start and end numbers.');
+        return;
+    }
+
+    const anglePerSegment = 360 / (endNumber - startNumber + 1);
+    const randomAngle = Math.random() * anglePerSegment;
+
+    const rotation = 1800 + randomAngle;
 
     spinning = true;
     chancesLeft--;
@@ -29,23 +38,17 @@ spinButton.addEventListener('click', () => {
     setTimeout(() => {
         spinning = false;
 
-        // Find the closest selected segment
-        const anglePerSegment = 360 / numberList.length;
-        const targetSegmentIndex = Math.floor((randomAngle + anglePerSegment / 2) / anglePerSegment);
-        const targetAngle = targetSegmentIndex * anglePerSegment;
+        const selectedIndex = Math.floor(randomAngle / anglePerSegment);
+        const selectedNumber = startNumber + selectedIndex;
 
-        // Rotate to the exact selected angle
         wheel.style.transition = 'transform 3s ease-in-out';
-        wheel.style.transform = `rotate(${rotation + targetAngle}deg) scale(1.5)`;
+        wheel.style.transform = `rotate(${rotation + anglePerSegment * selectedIndex}deg) scale(1.5)`;
 
-        // Display the selected number after the rotation animation
         setTimeout(() => {
-            const selectedNumber = numberList[targetSegmentIndex].textContent;
             numberDisplay.textContent = selectedNumber;
 
-            // Restore the wheel to its normal size
             wheel.style.transition = 'transform 1s ease-in-out';
-            wheel.style.transform = `rotate(${rotation + targetAngle}deg) scale(1)`;
+            wheel.style.transform = `rotate(${rotation + anglePerSegment * selectedIndex}deg) scale(1)`;
         }, 3000);
     }, 5000);
 });
