@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Number Picker Wheel</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Number Picker Wheel</title>
 </head>
 <body>
-    <script src="script.js"></script>
     <div class="picker-container">
         <div id="wheel" class="picker-wheel">
             <div class="picker-background"></div>
             <div id="number" class="picker-number">0</div>
+            <ul class="number-list">
+                <!-- Generate the segments on the wheel -->
+                <li style="--start-angle: 0deg; --end-angle: 36deg;">1</li>
+                <li style="--start-angle: 36deg; --end-angle: 72deg;">2</li>
+                <li style="--start-angle: 72deg; --end-angle: 108deg;">3</li>
+                <!-- ... more segments ... -->
+                <li style="--start-angle: 324deg; --end-angle: 360deg;">10</li>
+            </ul>
         </div>
         <button id="spin-button" class="spin-button">Spin</button>
     </div>
