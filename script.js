@@ -2,8 +2,6 @@ const wheel = document.getElementById('wheel');
 const numberDisplay = document.getElementById('number');
 const spinButton = document.getElementById('spin-button');
 const chancesDisplay = document.getElementById('chances');
-const startNumberInput = document.getElementById('start-number');
-const endNumberInput = document.getElementById('end-number');
 const numberList = document.querySelector('.number-list');
 
 let spinning = false;
@@ -14,15 +12,15 @@ chancesDisplay.textContent = `Chances left: ${chancesLeft}`;
 spinButton.addEventListener('click', () => {
     if (spinning || chancesLeft === 0) return;
 
-    const startNumber = parseInt(startNumberInput.value);
-    const endNumber = parseInt(endNumberInput.value);
+    const startNumberInput = parseInt(prompt("Enter start number:"));
+    const endNumberInput = parseInt(prompt("Enter end number:"));
 
-    if (isNaN(startNumber) || isNaN(endNumber) || startNumber >= endNumber) {
+    if (isNaN(startNumberInput) || isNaN(endNumberInput) || startNumberInput >= endNumberInput) {
         alert('Please enter valid start and end numbers.');
         return;
     }
 
-    const numSegments = endNumber - startNumber + 1;
+    const numSegments = endNumberInput - startNumberInput + 1;
     const anglePerSegment = 360 / numSegments;
     const randomSegmentIndex = Math.floor(Math.random() * numSegments);
 
@@ -43,7 +41,7 @@ spinButton.addEventListener('click', () => {
         wheel.style.transform = `rotate(${rotation + anglePerSegment / 2}deg) scale(1.5)`;
 
         setTimeout(() => {
-            const selectedNumber = startNumber + randomSegmentIndex;
+            const selectedNumber = startNumberInput + randomSegmentIndex;
             numberDisplay.textContent = selectedNumber;
 
             wheel.style.transition = 'transform 1s ease-in-out';
