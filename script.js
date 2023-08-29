@@ -23,9 +23,9 @@ spinButton.addEventListener('click', () => {
     }
 
     const anglePerSegment = 360 / (endNumber - startNumber + 1);
-    const randomAngle = Math.random() * anglePerSegment;
+    const randomSegmentIndex = Math.floor(Math.random() * (endNumber - startNumber + 1));
 
-    const rotation = 1800 + randomAngle;
+    const rotation = 1800 + randomSegmentIndex * anglePerSegment;
 
     spinning = true;
     chancesLeft--;
@@ -38,17 +38,15 @@ spinButton.addEventListener('click', () => {
     setTimeout(() => {
         spinning = false;
 
-        const selectedIndex = Math.floor(randomAngle / anglePerSegment);
-        const selectedNumber = startNumber + selectedIndex;
-
         wheel.style.transition = 'transform 3s ease-in-out';
-        wheel.style.transform = `rotate(${rotation + anglePerSegment * selectedIndex}deg) scale(1.5)`;
+        wheel.style.transform = `rotate(${rotation + anglePerSegment / 2}deg) scale(1.5)`;
 
         setTimeout(() => {
+            const selectedNumber = startNumber + randomSegmentIndex;
             numberDisplay.textContent = selectedNumber;
 
             wheel.style.transition = 'transform 1s ease-in-out';
-            wheel.style.transform = `rotate(${rotation + anglePerSegment * selectedIndex}deg) scale(1)`;
+            wheel.style.transform = `rotate(${rotation + anglePerSegment / 2}deg) scale(1)`;
         }, 3000);
     }, 5000);
 });
