@@ -17,15 +17,16 @@ spinButton.addEventListener('click', () => {
     const startNumber = parseInt(startNumberInput.value);
     const endNumber = parseInt(endNumberInput.value);
 
-    if (isNaN(startNumber) || isNaN(endNumber)) {
+    if (isNaN(startNumber) || isNaN(endNumber) || startNumber >= endNumber) {
         alert('Please enter valid start and end numbers.');
         return;
     }
 
-    const anglePerSegment = 360 / (endNumber - startNumber + 1);
-    const randomSegmentIndex = Math.floor(Math.random() * (endNumber - startNumber + 1));
+    const numSegments = endNumber - startNumber + 1;
+    const anglePerSegment = 360 / numSegments;
+    const randomSegmentIndex = Math.floor(Math.random() * numSegments);
 
-    const rotation = 1800 + randomSegmentIndex * anglePerSegment;
+    const rotation = 1800 + anglePerSegment * randomSegmentIndex;
 
     spinning = true;
     chancesLeft--;
