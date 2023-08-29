@@ -16,7 +16,7 @@ body {
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background-image: url('your_background_image.jpg');
+    background-image: url('your_background_image.jpg'); /* Replace with your background image */
     background-size: cover;
     overflow: hidden;
 }
@@ -37,12 +37,33 @@ body {
     color: white;
 }
 
-.spin-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
+.number-list {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    height: 200px;
+    clip-path: polygon(50% 50%, 50% 100%, 100% 100%);
 }
+
+.number-list li {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(50% 50%, 100% 100%, 0% 100%);
+    transform-origin: 50% 100%;
+    transform: translate(-50%, -50%) rotate(var(--start-angle)) skewY(calc(var(--end-angle) - var(--start-angle)));
+    background-color: hsl(var(--start-angle), 70%, 50%);
+    color: white;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spin-button {
+    margin
