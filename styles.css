@@ -1,76 +1,71 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Card Flipper</title>
+    <style>
+        .card {
+            width: 200px;
+            height: 300px;
+            perspective: 1000px;
+        }
 
-.picker-container {
-    text-align: center;
-}
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
 
-.picker-wheel {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background-image: url('Logo.jpg');
-    background-size: cover;
-    overflow: hidden;
-}
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
 
-.picker-background {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
-}
+        .card-face {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            border: 1px solid #ccc;
+        }
 
-.picker-number {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2em;
-    color: white;
-}
+        .card-front {
+            transform: rotateY(0deg);
+        }
 
-.number-list {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    height: 200px;
-    clip-path: polygon(50% 50%, 50% 100%, 100% 100%);
-}
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <h1>Card Flipper</h1>
+    <div class="card" id="card">
+        <div class="card-inner">
+            <div class="card-face card-front">
+                Click to Flip
+            </div>
+            <div class="card-face card-back">
+                Random Number: <span id="randomNumber">?</span>
+            </div>
+        </div>
+    </div>
 
-.number-list li {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    clip-path: polygon(50% 50%, 100% 100%, 0% 100%);
-    transform-origin: 50% 100%;
-    transform: translate(-50%, -50%) rotate(var(--start-angle)) skewY(calc(var(--end-angle) - var(--start-angle)));
-    background-color: hsl(var(--start-angle), 70%, 50%);
-    color: white;
-    font-size: 1.2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    <script>
+        const card = document.getElementById('card');
+        const randomNumberElement = document.getElementById('randomNumber');
 
-.spin-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-}
+        card.addEventListener('click', () => {
+            card.classList.add('flipped');
+            setTimeout(() => {
+                const randomNum = Math.floor(Math.random() * 100) + 1;
+                randomNumberElement.textContent = randomNum;
+                card.classList.remove('flipped');
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
