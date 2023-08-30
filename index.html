@@ -1,23 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Number Picker Wheel</title>
+    <title>Random Number Generator</title>
 </head>
 <body>
-    <div class="picker-container">
-        <div id="wheel" class="picker-wheel">
-            <div class="picker-background"></div>
-            <div id="number" class="picker-number">0</div>
-            <ul class="number-list">
-                <!-- Generate the segments on the wheel based on the input numbers -->
-            </ul>
-        </div>
-        <button id="spin-button" class="spin-button">Spin</button>
-        <div id="chances">Chances left: 5</div>
-    </div>
-    <script src="script.js"></script>
+    <h1>Random Number Generator</h1>
+    <label for="start">Start Number: </label>
+    <input type="number" id="start" min="1" />
+    <br>
+    <label for="end">End Number: </label>
+    <input type="number" id="end" min="1" />
+    <br>
+    <button id="generate">Generate Random Number</button>
+    <p id="result"></p>
+
+    <script>
+        const generateButton = document.getElementById('generate');
+        const resultElement = document.getElementById('result');
+
+        generateButton.addEventListener('click', () => {
+            const start = parseInt(document.getElementById('start').value);
+            const end = parseInt(document.getElementById('end').value);
+            
+            if (isNaN(start) || isNaN(end)) {
+                resultElement.textContent = "Please enter valid numbers.";
+            } else if (start >= end) {
+                resultElement.textContent = "Start number must be less than end number.";
+            } else {
+                const randomNumber = Math.floor(Math.random() * (end - start + 1)) + start;
+                resultElement.textContent = `Random Number: ${randomNumber}`;
+            }
+        });
+    </script>
 </body>
 </html>
