@@ -1,2 +1,2 @@
-# PickerWheel
-Random Number Generator With Picker Wheel Generator
+# Card Flipper
+Random Number Generator With a card Flip.
