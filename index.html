@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Random Number Generator & Card Flipper</title>
+    <title>Random Number Card Flipper</title>
     <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
         .card {
             width: 200px;
             height: 300px;
             perspective: 1000px;
-            margin: 20px;
         }
 
         .card-inner {
@@ -43,21 +50,10 @@
     </style>
 </head>
 <body>
-    <h1>Random Number Generator & Card Flipper</h1>
-    <div>
-        <label for="start">Start Number: </label>
-        <input type="number" id="start" min="1" />
-        <br>
-        <label for="end">End Number: </label>
-        <input type="number" id="end" min="1" />
-        <br>
-        <button id="generate">Generate Random Number</button>
-        <p id="result"></p>
-    </div>
     <div class="card" id="card">
         <div class="card-inner">
             <div class="card-face card-front">
-                Click to Flip
+                Click to Reveal
             </div>
             <div class="card-face card-back">
                 Random Number: <span id="randomNumber">?</span>
@@ -66,24 +62,8 @@
     </div>
 
     <script>
-        const generateButton = document.getElementById('generate');
-        const resultElement = document.getElementById('result');
         const card = document.getElementById('card');
         const randomNumberElement = document.getElementById('randomNumber');
-
-        generateButton.addEventListener('click', () => {
-            const start = parseInt(document.getElementById('start').value);
-            const end = parseInt(document.getElementById('end').value);
-
-            if (isNaN(start) || isNaN(end)) {
-                resultElement.textContent = "Please enter valid numbers.";
-            } else if (start >= end) {
-                resultElement.textContent = "Start number must be less than end number.";
-            } else {
-                const randomNumber = Math.floor(Math.random() * (end - start + 1)) + start;
-                resultElement.textContent = `Random Number: ${randomNumber}`;
-            }
-        });
 
         card.addEventListener('click', () => {
             card.classList.add('flipped');
