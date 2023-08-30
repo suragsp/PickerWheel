@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Number Card Flipper</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card {
+            width: 200px;
+            height: 300px;
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(540deg);
+        }
+
+        .card-face {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            border: 1px solid #ccc;
+        }
+
+        .card-front {
+            transform: rotateY(0deg);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* New styles for overlapping image and random number */
+        .back-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            top: 10%; /* Adjust the position as needed */
+        }
+
+        .card-face.card-back .back-content span {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-face.card-back .back-content img {
+            width: 100%;
+            height: calc(100%); /* Adjust the height of the image container as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card" id="card">
+            <div class="card-inner">
+                <div class="card-face card-front">
+                    <img src="Logo.jpg" alt="Front Image">
+                </div>
+                <div class="card-face card-back">
+                    <div class="back-content">
+                        <span>Number: <span id="randomNumber">?</span></span>
+                        <img src="Logo.jpg" alt="Back Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const card = document.getElementById('card');
+        const randomNumberElement = document.getElementById('randomNumber');
+        let randomNumberDisplayed = false;
+        let randomNum = 0;
+
+        // Function to generate a random number within a range
+        function generateRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Get user input for the range
+        const startNumber = parseInt(prompt("Enter the start number:"));
+        const endNumber = parseInt(prompt("Enter the end number:"));
+
+        card.addEventListener('click', () => {
+            if (!randomNumberDisplayed) {
+                card.classList.add('flipped');
+                randomNum = generateRandomNumber(startNumber, endNumber);
+                randomNumberElement.textContent = randomNum;
+                randomNumberDisplayed = true;
+            } else {
+                card.classList.remove('flipped');
+                randomNumberElement.textContent = "?";
+                randomNumberDisplayed = false;
+            }
+        });
+    </script>
+</body>
+</html>
